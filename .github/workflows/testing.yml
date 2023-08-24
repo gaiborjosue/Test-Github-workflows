@@ -7,7 +7,7 @@ on:
 
 jobs:
   create_new_branch:
-    if: ${{startsWith(github.event.issue.title, 'New Model:')}} && ${{ github.event.label.name != 'failed' }}
+    if: ${{startsWith(github.event.issue.title, 'New Model:')}} && ${{ contains(github.event.issue.labels.*.name, 'failed') == 'false' }}
 
     runs-on: ubuntu-latest
 
