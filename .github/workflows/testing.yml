@@ -166,7 +166,7 @@ jobs:
           actions: 'set-labels'
           token: ${{ secrets.GITHUB_TOKEN }}
           issue-number: ${{ github.event.issue.number }}
-          labels: '⚠️-failed'
+          labels: 'failed'
 
       - name: Create comment
         uses: actions-cool/issues-helper@v3
