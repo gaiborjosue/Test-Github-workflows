@@ -3,7 +3,7 @@ name: Add a new model
 # Trigger the workflow on pull request
 on:
   issues:
-    types: [assigned]
+    types: [assigned, labeled]
 
 jobs:
   create_new_branch:
