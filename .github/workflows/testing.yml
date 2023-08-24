@@ -34,10 +34,16 @@ jobs:
           python-version: 3.11
 
       # Checkout the repository to the GitHub Actions runner
+      # If branchName is empty use issue number, else, use the branchName
       - uses: actions/checkout@v3
+        if: steps.Create_Issue_Branch.outputs.branchName == ''
         with:
-          ref: ${{ steps.Create_Issue_Branch.outputs.branchName }}          
+          ref: issue-${{ github.event.issue.number }}
 
+      - uses: actions/checkout@v3
+        if: steps.Create_Issue_Branch.outputs.branchName != ''
+        with:
+            ref: ${{ steps.Create_Issue_Branch.outputs.branchName }}
 
       - uses: stefanbuck/github-issue-parser@v3
         id: issue-parser
