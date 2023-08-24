@@ -1,4 +1,3 @@
-branchName: 'issue-${issue.number}'
 openPR: true
 prSkipCI: true
 commentMessage: 'Branch ${branchName} created for issue: ${issue.title}'
