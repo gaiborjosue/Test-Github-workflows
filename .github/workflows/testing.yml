@@ -7,7 +7,7 @@ on:
 
 jobs:
   create_new_branch:
-    if: ${{startsWith(github.event.issue.title, 'New Model:')}}
+    if: ${{startsWith(github.event.issue.title, 'New Model:')}} && ${{ github.event.issue.labels }} != 'failed'
 
     runs-on: ubuntu-latest
 
@@ -34,12 +34,15 @@ jobs:
           python-version: 3.11
 
       # Checkout the repository to the GitHub Actions runner
-      # If branchName is empty use issue number, else, use the branchName
+      # This is when the action fails and the user wants to update the issue scripts
+      # This will ref the issue branch and allow for the rest of the script to update
+      # the branch.
       - uses: actions/checkout@v3
         if: steps.Create_Issue_Branch.outputs.branchName == ''
         with:
           ref: issue-${{ github.event.issue.number }}
 
+      # If branchName is empty use issue number, else, use the branchName
       - uses: actions/checkout@v3
         if: steps.Create_Issue_Branch.outputs.branchName != ''
         with:
@@ -148,3 +151,19 @@ jobs:
     - name: Load Docker image
       run: |
         docker load -i "./${{ needs.create_new_branch.outputs.MODELPATH }}/dockercontext/${{ needs.create_new_branch.outputs.MODELNAME }}.tar"
+
+  failed:
+    runs-on: ubuntu-latest
+
+    needs: [create_new_branch, test_env_vars]
+
+    if: ${{ always() && contains(needs.*.result, 'failure') }}
+
+    steps:
+      - name: Set labels
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'set-labels'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          labels: 'failed'
