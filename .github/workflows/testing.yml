@@ -7,6 +7,8 @@ on:
 
 jobs:
   create_new_branch:
+    # The workflow will only activate if the title starts with "New Model:" and does not have a label 'failed'.
+    # If the label is 'failed' the user must update the bugs and update the label to 'ready-for-testing'
     if: ${{startsWith(github.event.issue.title, 'New Model:') && contains(github.event.issue.labels.*.name, 'failed') != true}}
 
     runs-on: ubuntu-latest
@@ -19,7 +21,7 @@ jobs:
       MODELNAME: ${{ steps.set_image_name.outputs.model_name }}
 
     steps:
-        # This will automatically create a new branch from this issue, using custom config at /.github/issue-branch.yml
+        # This will automatically create a new branch from this issue, using custom config at /.github/issue-branch.yml 🟢
       - name: Create Issue Branch
         id: Create_Issue_Branch
         uses: robvanderleek/create-issue-branch@main
@@ -27,7 +29,7 @@ jobs:
           GITHUB_TOKEN:
             ${{ secrets.GITHUB_TOKEN }}
     
-      # Set up Python
+      # Set up Python 🟢
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -36,18 +38,19 @@ jobs:
       # Checkout the repository to the GitHub Actions runner
       # This is when the action fails and the user wants to update the issue scripts
       # This will ref the issue branch and allow for the rest of the script to update
-      # the branch.
+      # the branch. 🟢
       - uses: actions/checkout@v3
         if: steps.Create_Issue_Branch.outputs.branchName == ''
         with:
           ref: issue-${{ github.event.issue.number }}
 
-      # If branchName is empty use issue number, else, use the branchName
+      # If branchName is empty use issue number, else, use the branchName 🟢
       - uses: actions/checkout@v3
         if: steps.Create_Issue_Branch.outputs.branchName != ''
         with:
             ref: ${{ steps.Create_Issue_Branch.outputs.branchName }}
-
+      
+      # Parse the issue template and content 🟢
       - uses: stefanbuck/github-issue-parser@v3
         id: issue-parser
         with:
