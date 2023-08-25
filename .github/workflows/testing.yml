@@ -132,6 +132,11 @@ jobs:
           name: ${{ steps.set_image_name.outputs.model_name }}
           path: ./${{ steps.get_path.outputs.path }}/dockercontext/${{ steps.set_image_name.outputs.model_name }}.tar
 
+      - uses: whoan/docker-build-with-cache-action@v5
+        with:
+            image_name: hello-world
+            push_image_and_stages: false
+
   test_env_vars:
     runs-on: ubuntu-latest
     needs: create_new_branch
