@@ -1,4 +1,4 @@
-name: Update an existing model
+name: ♻️ Update an existing model
 description: Update your model
 title: "Update Model: {org}/{model}/{version}"
 labels: ["update"]
@@ -69,7 +69,7 @@ body:
           required: false
         - label: Sample dataset
           required: false
-          
+
   - type: checkboxes
     id: terms
     attributes:
