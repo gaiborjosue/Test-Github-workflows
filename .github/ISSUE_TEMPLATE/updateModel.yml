@@ -28,31 +28,48 @@ body:
   - type: input
     id: docker
     attributes:
-      label: Docker information
+      label: Update Docker information
       description: Please enter the link to the docker folder. Following recommendation 1. 
       placeholder: Enter the github link to the docker folder here.
     validations:
-      required: true
+      required: false
   - type: textarea
     id: python-scripts
     attributes:
-      label: Model's python scripts
+      label: Update the Model's python scripts
       description: Please provide URL's to all your python scripts. It can be a standalone script but could also be a mix of folders and single scripts. 
       placeholder: If multiple URLs please enter one per line.
     validations:
-      required: true
+      required: false
   - type: textarea
     id: model_info
     attributes:
-      label: Model's card and spec
+      label: Update the Model's card and spec
       description: Please provide a URL for your model_card.yaml and model_spec.yaml files.
       placeholder: One per line please.
   - type: input
     id: sample-data
     attributes:
-      label: Sample data
+      label: Update the Sample dataset
       description: Please provide a link to a sample dataset that can be used to test your model.
       placeholder: Enter the sample-dataset here.
+  - type: checkboxes
+    id: updates
+    attributes:
+      label: Select what is being updated
+      description: Please select all the checkboxes that apply to this update.
+      options:
+        - label: Model's weights
+          required: false
+        - label: Docker information
+          required: false
+        - label: Model's python scripts
+          required: false
+        - label: Model's card and spec
+          required: false
+        - label: Sample dataset
+          required: false
+          
   - type: checkboxes
     id: terms
     attributes:
