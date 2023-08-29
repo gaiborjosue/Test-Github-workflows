@@ -27,7 +27,11 @@ jobs:
         with:
           issueNumber: ${{ github.event.issue.number }}
           token: ${{ secrets.GITHUB_TOKEN }}
-
+      - name: Print outputs
+        run: |
+          echo ${{ steps.Create_Issue_Branch.outputs.path }}
+        shell: bash
+        
       - name: Get Python Scripts
         id: python_scripts
         run: |
