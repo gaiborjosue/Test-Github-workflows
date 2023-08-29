@@ -1,25 +1,22 @@
-name: Setup branch and parser for Issue Request
+name: "Setup branch and parser for Issue Request"
 
-on:
-  workflow_call:
-    inputs:
-      issueNumber:
-        required: true
-        type: number
+inputs:
+  issueNumber:
+    required: true
+    type: number
 
-jobs:
-  create_new_branch:
-    runs-on: ubuntu-latest
+runs:
+  using: "composite"
 
+  steps:
+  
     outputs:
       BRANCHNAME: ${{ steps.Create_Issue_Branch.outputs.branchName }}
       IMAGENAME: ${{ steps.set_image_name.outputs.image_name }}
       MODELPATH: ${{ steps.get_path.outputs.path }}
       MODELNAME: ${{ steps.set_image_name.outputs.model_name }}
-      PYTHON: ${{ env.python }}
       DOCKER: ${{ steps.get_docker_url.outputs.docker_url }}
 
-    steps:
       # This will automatically create a new branch from this issue, using custom config at /.github/issue-branch.yml 🟢 ♻️
     - name: Create Issue Branch
       id: Create_Issue_Branch
@@ -27,12 +24,6 @@ jobs:
       env:
         GITHUB_TOKEN:
           ${{ secrets.GITHUB_TOKEN }}
-  
-    # Set up Python 🟢 ♻️
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.11
 
     # Checkout the repository to the GitHub Actions runner
     # This is when the action fails and the user wants to update the issue scripts

@@ -6,19 +6,12 @@ on:
     types: [assigned, labeled]
 
 jobs:
-  testing:
-    uses: gaiborjosue/Test-Github-Workflows/.github/workflows/setupRequest.yml@main
-    with:
-      issueNumber: ${{ github.event.issue.number }}
-
   create_new_branch:
     # The workflow will only activate if the title starts with "New Model:" and does not have a label 'failed'.
     # If the label is 'failed' the user must update the bugs and update the label to 'ready-for-testing'
     if: ${{startsWith(github.event.issue.title, 'Update Model:') && contains(github.event.issue.labels.*.name, 'failed') != true}}
 
     runs-on: ubuntu-latest
-
-    needs: [testing]
     
     outputs:
       BRANCHNAME: ${{ steps.Create_Issue_Branch.outputs.branchName }}
@@ -28,6 +21,12 @@ jobs:
       MODELNAME: ${{ steps.set_image_name.outputs.model_name }}
 
     steps:
+      - name: Setup the Branch
+        uses: gaiborjosue/Test-Github-workflows@main
+        id: Create_Issue_Branch
+        with:
+          issueNumber: ${{ github.event.issue.number }}
+
       - name: Get Python Scripts
         id: python_scripts
         run: |
@@ -48,27 +47,27 @@ jobs:
         run: |
           svn_urls="${{ env.pythons2 }}"
           for svn_url in $svn_urls; do
-            svn export --force $svn_url ./${{ needs.testing.outputs.MODELPATH }}
+            svn export --force $svn_url ./${{ steps.Create_Issue_Branch.outputs.MODELPATH }}
           done
 
       - name: Clone docker folder
         run: |
-          url="${{ needs.testing.outputs.docker_url }}"
+          url="${{ steps.Create_Issue_Branch.outputs.DOCKER }}"
           echo $url
           svn_url=$(echo "$url" | sed -E 's|/tree/[^/]+|/trunk|; s|/blob/[^/]+|/trunk|')
 
-          svn export --force $svn_url ./${{ needs.testing.outputs.MODELPATH }}/dockercontext
+          svn export --force $svn_url ./${{ steps.Create_Issue_Branch.outputs.MODELPATH }}/dockercontext
 
       # Commit the new created files and folders to the branch needs.create_new_branch.outputs.BRANCHNAME
       - name: Commit the new files
         run: |
-          echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
+          echo ${{ steps.Create_Issue_Branch.outputs.BRANCHNAME }}
           echo $(git show-ref)
           git config --global user.name "trained_models"
           git config --global user.email "trained_models"
-          git add ./${{ steps.get_path.outputs.path }}
+          git add ./${{ steps.Create_Issue_Branch.outputs.MODELPATH }}
           git commit -m "Added model folder and files"
-          git push -u origin ${{ steps.Create_Issue_Branch.outputs.branchName }}
+          git push -u origin ${{ steps.Create_Issue_Branch.outputs.BRANCHNAME }}
 
       # Get image name
       - name: Set docker image name
