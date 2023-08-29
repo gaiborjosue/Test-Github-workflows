@@ -8,6 +8,14 @@ inputs:
     required: true
     type: string
 
+outputs:
+  path:
+    description: "The path to the file to update"
+    value: ${{ steps.get_path.outputs.path }}
+  docker_url:
+    description: "The docker url to update"
+    value: ${{ steps.get_docker_url.outputs.docker_url }}
+
 runs:
   using: "composite"
 
