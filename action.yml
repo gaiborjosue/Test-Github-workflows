@@ -9,13 +9,6 @@ runs:
   using: "composite"
 
   steps:
-  
-    outputs:
-      BRANCHNAME: ${{ steps.Create_Issue_Branch.outputs.branchName }}
-      IMAGENAME: ${{ steps.set_image_name.outputs.image_name }}
-      MODELPATH: ${{ steps.get_path.outputs.path }}
-      MODELNAME: ${{ steps.set_image_name.outputs.model_name }}
-      DOCKER: ${{ steps.get_docker_url.outputs.docker_url }}
 
       # This will automatically create a new branch from this issue, using custom config at /.github/issue-branch.yml 🟢 ♻️
     - name: Create Issue Branch
