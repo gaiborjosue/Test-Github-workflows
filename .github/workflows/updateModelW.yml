@@ -6,6 +6,11 @@ on:
     types: [assigned, labeled]
 
 jobs:
+  testing:
+    uses: gaiborjosue/Test-Github-Workflows/.github/workflows/reusableWorkflow/setupRequest.yml@main
+    with:
+      issueNumber: ${{ github.event.issue.number }}
+      
   create_new_branch:
     # The workflow will only activate if the title starts with "New Model:" and does not have a label 'failed'.
     # If the label is 'failed' the user must update the bugs and update the label to 'ready-for-testing'
@@ -21,9 +26,6 @@ jobs:
       MODELNAME: ${{ steps.set_image_name.outputs.model_name }}
 
     steps:
-      - uses: gaiborjosue/Test-Github-Workflows/.github/workflows/reusableWorkflow/setupRequest.yml@main
-        with:
-          issueNumber: ${{ github.event.issue.number }}
           
       - name: Generate SVN URLs
         id: generate_urls
