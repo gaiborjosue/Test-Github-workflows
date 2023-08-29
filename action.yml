@@ -43,13 +43,16 @@ runs:
         template-path: .github/ISSUE_TEMPLATE/updateModel.yml # optional but recommended
   
     - name: Get the Path
+      shell: bash
       id: get_path
       run: echo "path=${{ steps.issue-parser.outputs.issueparser_path }}" >> $GITHUB_OUTPUT
 
     # Get docker url
     - name: Get Docker URL
+      shell: bash
       id: get_docker_url
       run: echo "docker_url=${{ steps.issue-parser.outputs.issueparser_docker }}" >> $GITHUB_OUTPUT
 
     - name: Install svn
+      shell: bash
       run: sudo apt-get install subversion
