@@ -26,6 +26,7 @@ jobs:
         id: Create_Issue_Branch
         with:
           issueNumber: ${{ github.event.issue.number }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get Python Scripts
         id: python_scripts

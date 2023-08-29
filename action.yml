@@ -4,6 +4,9 @@ inputs:
   issueNumber:
     required: true
     type: number
+  token:
+    required: true
+    type: string
 
 runs:
   using: "composite"
@@ -16,7 +19,7 @@ runs:
       uses: robvanderleek/create-issue-branch@main
       env:
         GITHUB_TOKEN:
-          ${{ secrets.GITHUB_TOKEN }}
+          ${{ inputs.token }}
 
     # Checkout the repository to the GitHub Actions runner
     # This is when the action fails and the user wants to update the issue scripts
