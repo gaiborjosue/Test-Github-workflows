@@ -48,27 +48,27 @@ jobs:
         run: |
           svn_urls="${{ env.pythons2 }}"
           for svn_url in $svn_urls; do
-            svn export --force $svn_url ./${{ steps.Create_Issue_Branch.outputs.MODELPATH }}
+            svn export --force $svn_url ./${{ steps.Create_Issue_Branch.outputs.path }}
           done
 
       - name: Clone docker folder
         run: |
-          url="${{ steps.Create_Issue_Branch.outputs.DOCKER }}"
+          url="${{ steps.Create_Issue_Branch.outputs.docker_url }}"
           echo $url
           svn_url=$(echo "$url" | sed -E 's|/tree/[^/]+|/trunk|; s|/blob/[^/]+|/trunk|')
 
-          svn export --force $svn_url ./${{ steps.Create_Issue_Branch.outputs.MODELPATH }}/dockercontext
+          svn export --force $svn_url ./${{ steps.Create_Issue_Branch.outputs.path }}/dockercontext
 
       # Commit the new created files and folders to the branch needs.create_new_branch.outputs.BRANCHNAME
       - name: Commit the new files
         run: |
-          echo ${{ steps.Create_Issue_Branch.outputs.BRANCHNAME }}
+          echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
           echo $(git show-ref)
           git config --global user.name "trained_models"
           git config --global user.email "trained_models"
-          git add ./${{ steps.Create_Issue_Branch.outputs.MODELPATH }}
+          git add ./${{ steps.Create_Issue_Branch.outputs.path }}
           git commit -m "Added model folder and files"
-          git push -u origin ${{ steps.Create_Issue_Branch.outputs.BRANCHNAME }}
+          git push -u origin ${{ steps.Create_Issue_Branch.outputs.branchName }}
 
       # Get image name
       - name: Set docker image name
