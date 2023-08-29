@@ -16,6 +16,8 @@ jobs:
       IMAGENAME: ${{ steps.set_image_name.outputs.image_name }}
       MODELPATH: ${{ steps.get_path.outputs.path }}
       MODELNAME: ${{ steps.set_image_name.outputs.model_name }}
+      PYTHON: ${{ env.python }}
+      DOCKER: ${{ steps.get_docker_url.outputs.docker_url }}
 
     steps:
       # This will automatically create a new branch from this issue, using custom config at /.github/issue-branch.yml 🟢 ♻️
@@ -52,14 +54,7 @@ jobs:
       id: issue-parser
       with:
         template-path: .github/ISSUE_TEMPLATE/updateModel.yml # optional but recommended
-    
-    - name: Get Python Scripts
-      id: python_scripts
-      run: |
-        echo "pythons<<EOF" >> $GITHUB_ENV
-        echo "${{ steps.issue-parser.outputs.issueparser_python-scripts }}" >> $GITHUB_ENV
-        echo "EOF" >> $GITHUB_ENV
-
+  
     - name: Get the Path
       id: get_path
       run: echo "path=${{ steps.issue-parser.outputs.issueparser_path }}" >> $GITHUB_OUTPUT

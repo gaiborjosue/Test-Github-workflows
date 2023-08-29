@@ -17,6 +17,8 @@ jobs:
     if: ${{startsWith(github.event.issue.title, 'Update Model:') && contains(github.event.issue.labels.*.name, 'failed') != true}}
 
     runs-on: ubuntu-latest
+
+    needs: [testing]
     
     outputs:
       BRANCHNAME: ${{ steps.Create_Issue_Branch.outputs.branchName }}
@@ -26,7 +28,13 @@ jobs:
       MODELNAME: ${{ steps.set_image_name.outputs.model_name }}
 
     steps:
-          
+      - name: Get Python Scripts
+        id: python_scripts
+        run: |
+          echo "pythons<<EOF" >> $GITHUB_ENV
+          echo "${{ steps.issue-parser.outputs.issueparser_python-scripts }}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
       - name: Generate SVN URLs
         id: generate_urls
         run: |
@@ -40,16 +48,16 @@ jobs:
         run: |
           svn_urls="${{ env.pythons2 }}"
           for svn_url in $svn_urls; do
-            svn export --force $svn_url ./${{ steps.get_path.outputs.path }}
+            svn export --force $svn_url ./${{ needs.testing.outputs.MODELPATH }}
           done
 
       - name: Clone docker folder
         run: |
-          url="${{ steps.get_docker_url.outputs.docker_url }}"
+          url="${{ needs.testing.outputs.docker_url }}"
           echo $url
           svn_url=$(echo "$url" | sed -E 's|/tree/[^/]+|/trunk|; s|/blob/[^/]+|/trunk|')
 
-          svn export --force $svn_url ./${{ steps.get_path.outputs.path }}/dockercontext
+          svn export --force $svn_url ./${{ needs.testing.outputs.MODELPATH }}/dockercontext
 
       # Commit the new created files and folders to the branch needs.create_new_branch.outputs.BRANCHNAME
       - name: Commit the new files
