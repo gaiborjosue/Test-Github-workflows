@@ -16,7 +16,7 @@ outputs:
     description: "The docker url to update"
     value: ${{ steps.get_docker_url.outputs.docker_url }}
   PYTHONS:
-    value: ${{ issue-parser.outputs.issueparser_python-scripts }}
+    value: ${{ steps.issue-parser.outputs.issueparser_python-scripts }}
   BRANCHNAME:
     value: ${{ steps.Create_Issue_Branch.outputs.branchName }}
 runs:
