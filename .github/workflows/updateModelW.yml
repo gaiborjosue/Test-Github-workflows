@@ -7,10 +7,10 @@ on:
 
 jobs:
   testing:
-    uses: gaiborjosue/Test-Github-Workflows/.github/workflows/reusableWorkflow/setupRequest.yml@main
+    uses: gaiborjosue/Test-Github-Workflows/.github/workflows/setupRequest.yml@main
     with:
       issueNumber: ${{ github.event.issue.number }}
-      
+
   create_new_branch:
     # The workflow will only activate if the title starts with "New Model:" and does not have a label 'failed'.
     # If the label is 'failed' the user must update the bugs and update the label to 'ready-for-testing'
