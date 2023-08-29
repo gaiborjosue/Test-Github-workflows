@@ -10,6 +10,11 @@ inputs:
 
 runs:
   using: "composite"
+  
+  outputs:
+    DOCKER: ${{ steps.get_docker_url.outputs.docker_url }}
+    MODELPATH: ${{ steps.get_path.outputs.path }}
+    BRANCHNAME: ${{ steps.Create_Issue_Branch.outputs.branchName }}
 
   steps:
 
