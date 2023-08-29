@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Setup the Branch
-        uses: gaiborjosue/Test-Github-workflows@main
+        uses: gaiborjosue/Test-Github-workflows/.github/workflows/comp@main
         id: Create_Issue_Branch
         with:
           issueNumber: ${{ github.event.issue.number }}
