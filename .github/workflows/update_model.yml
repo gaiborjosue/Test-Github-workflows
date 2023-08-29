@@ -12,7 +12,7 @@ jobs:
     if: ${{startsWith(github.event.issue.title, 'Update Model:') && contains(github.event.issue.labels.*.name, 'failed') != true}}
 
     runs-on: ubuntu-latest
-
+    
     outputs:
       BRANCHNAME: ${{ steps.Create_Issue_Branch.outputs.branchName }}
       PYTHONS: ${{ env.pythons2 }}
@@ -21,60 +21,10 @@ jobs:
       MODELNAME: ${{ steps.set_image_name.outputs.model_name }}
 
     steps:
-        # This will automatically create a new branch from this issue, using custom config at /.github/issue-branch.yml 🟢 ♻️
-      - name: Create Issue Branch
-        id: Create_Issue_Branch
-        uses: robvanderleek/create-issue-branch@main
-        env:
-          GITHUB_TOKEN:
-            ${{ secrets.GITHUB_TOKEN }}
-    
-      # Set up Python 🟢 ♻️
-      - name: Set up Python
-        uses: actions/setup-python@v2
+      - uses: gaiborjosue/Test-Github-Workflows/.github/workflows/reusableWorkflow/setupRequest.yml@main
         with:
-          python-version: 3.11
-
-      # Checkout the repository to the GitHub Actions runner
-      # This is when the action fails and the user wants to update the issue scripts
-      # This will ref the issue branch and allow for the rest of the script to update
-      # the branch. 🟢 ♻️
-      - uses: actions/checkout@v3
-        if: steps.Create_Issue_Branch.outputs.branchName == ''
-        with:
-          ref: issue-${{ github.event.issue.number }}
-
-      # If branchName is empty use issue number, else, use the branchName 🟢 ♻️
-      - uses: actions/checkout@v3
-        if: steps.Create_Issue_Branch.outputs.branchName != ''
-        with:
-            ref: ${{ steps.Create_Issue_Branch.outputs.branchName }}
-      
-      # Parse the issue template and content 🟢 ♻️
-      - uses: stefanbuck/github-issue-parser@v3
-        id: issue-parser
-        with:
-          template-path: .github/ISSUE_TEMPLATE/updateModel.yml # optional but recommended
-      
-      - name: Get Python Scripts
-        id: python_scripts
-        run: |
-          echo "pythons<<EOF" >> $GITHUB_ENV
-          echo "${{ steps.issue-parser.outputs.issueparser_python-scripts }}" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-
-      - name: Get the Path
-        id: get_path
-        run: echo "path=${{ steps.issue-parser.outputs.issueparser_path }}" >> $GITHUB_OUTPUT
-
-      # Get docker url
-      - name: Get Docker URL
-        id: get_docker_url
-        run: echo "docker_url=${{ steps.issue-parser.outputs.issueparser_docker }}" >> $GITHUB_OUTPUT
-
-      - name: Install svn
-        run: sudo apt-get install subversion
-    
+          issueNumber: ${{ github.event.issue.number }}
+          
       - name: Generate SVN URLs
         id: generate_urls
         run: |
