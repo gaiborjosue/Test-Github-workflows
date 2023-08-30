@@ -31,7 +31,7 @@ jobs:
 
       - name: Get Python Scripts
         # Only if "Model's python scripts" is inside the list of updates in Create_Issue_Branch
-        if: "Model python scripts" in steps.Create_Issue_Branch.outputs.UPDATES
+        if: contains(steps.Create_Issue_Branch.outputs.UPDATES, 'Model-python-scripts')
         id: python_scripts
         run: |
           echo "pythons<<EOF" >> $GITHUB_ENV
@@ -39,7 +39,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
       - name: Generate SVN URLs
-        if: contains(steps.Create_Issue_Branch.outputs.UPDATES, "Model python scripts")
+        if: contains(steps.Create_Issue_Branch.outputs.UPDATES, "Model-python-scripts")
         id: generate_urls
         run: |
           echo "pythons2<<EOF" >> $GITHUB_ENV
@@ -49,7 +49,7 @@ jobs:
             pythons: ${{ env.pythons }}
         
       - name: Clone python scripts
-        if: contains(steps.Create_Issue_Branch.outputs.UPDATES, "Model python scripts")
+        if: contains(steps.Create_Issue_Branch.outputs.UPDATES, "Model-python-scripts")
         run: |
           svn_urls="${{ env.pythons2 }}"
           for svn_url in $svn_urls; do
@@ -57,7 +57,7 @@ jobs:
           done
 
       - name: Clone docker folder
-        if: contains(steps.Create_Issue_Branch.outputs.UPDATES, "Docker information")
+        if: contains(steps.Create_Issue_Branch.outputs.UPDATES, "Docker-information")
         run: |
           url="${{ steps.Create_Issue_Branch.outputs.DOCKER }}"
           echo $url
