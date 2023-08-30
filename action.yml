@@ -19,6 +19,8 @@ outputs:
     value: ${{ steps.issue-parser.outputs.issueparser_python-scripts }}
   BRANCHNAME:
     value: ${{ steps.Create_Issue_Branch.outputs.branchName }}
+  UPDATES:
+    value: ${{ steps.get_updates.outputs.updates }}
 
 
 runs:
@@ -54,7 +56,13 @@ runs:
       id: issue-parser
       with:
         template-path: .github/ISSUE_TEMPLATE/updateModel.yml # optional but recommended
-  
+
+    # Get what is being updated checkboxes
+    - name: Get updates
+      shell: bash
+      id: get_updates
+      run: echo "updates=${{ steps.issue-parser.outputs.issueparser_updates }}" >> $GITHUB_OUTPUT
+
     - name: Get the Path
       shell: bash
       id: get_path
@@ -62,6 +70,8 @@ runs:
 
     # Get docker url
     - name: Get Docker URL
+      # Only if "Docker information" is in the list updates
+      if: contains(steps.get_updates.outputs.updates, 'Docker information')
       shell: bash
       id: get_docker_url
       run: echo "docker_url=${{ steps.issue-parser.outputs.issueparser_docker }}" >> $GITHUB_OUTPUT
