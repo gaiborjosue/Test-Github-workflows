@@ -31,7 +31,7 @@ jobs:
 
       - name: Get Python Scripts
         # Only if "Model's python scripts" is inside the list of updates in Create_Issue_Branch
-        if: contains(steps.Create_Issue_Branch.outputs.UPDATES, "Model's python scripts")
+        if: contains(steps.Create_Issue_Branch.outputs.UPDATES, "Model⧵'s python scripts")
         id: python_scripts
         run: |
           echo "pythons<<EOF" >> $GITHUB_ENV
