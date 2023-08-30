@@ -71,7 +71,7 @@ runs:
     # Get docker url
     - name: Get Docker URL
       # Only if Docker information is in the list updates
-      if: ${{ steps.get_updates.outputs.updates =~ (^|[[:space:]])"Docker information"($|[[:space:]]) }} 
+      if: ${{ contains(steps.get_updates.outputs.updates, 'ModelPythonScripts') }}
       shell: bash
       id: get_docker_url
       run: echo "docker_url=${{ steps.issue-parser.outputs.issueparser_docker }}" >> $GITHUB_OUTPUT

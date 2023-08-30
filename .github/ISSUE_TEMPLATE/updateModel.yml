@@ -59,15 +59,15 @@ body:
       label: Select what is being updated
       description: Please select all the checkboxes that apply to this update.
       options:
-        - label: Model weights
+        - label: ModelWeights
           required: false
-        - label: Docker information
+        - label: DockerInformation
           required: false
-        - label: Model python scripts
+        - label: ModelPythonScripts
           required: false
-        - label: Model card and spec
+        - label: ModelCardAndSpec
           required: false
-        - label: Sample dataset
+        - label: SampleDataset
           required: false
 
   - type: checkboxes
