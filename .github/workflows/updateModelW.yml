@@ -21,6 +21,7 @@ jobs:
       MODELNAME: ${{ steps.set_image_name.outputs.model_name }}
 
     steps:
+      # Create a new repo, and parse issue information with composite action
       - name: Setup the Branch
         uses: gaiborjosue/Test-Github-workflows@main
         id: Create_Issue_Branch
@@ -74,7 +75,7 @@ jobs:
       - name: Set docker image name
         id: set_image_name
         run: |
-          full_path="${{ steps.get_path.outputs.path }}"
+          full_path="${{ steps.Create_Issue_Branch.outputs.MODELPATH }}"
           model_name=$(echo "$full_path" | awk -F '/' '{print $(NF-1)}')
           echo "image_name=$model_name" >> $GITHUB_OUTPUT
           echo "model_name=$model_name" >> $GITHUB_OUTPUT
@@ -90,7 +91,7 @@ jobs:
       # Build the Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ steps.set_image_name.outputs.image_name }} ./${{ steps.get_path.outputs.path }}/dockercontext
+          docker build -t ${{ steps.set_image_name.outputs.image_name }} ./${{ steps.Create_Issue_Branch.outputs.MODELPATH }}/dockercontext
           docker save --output ./${{ steps.get_path.outputs.path }}/dockercontext/${{ steps.set_image_name.outputs.model_name }}.tar ${{ steps.set_image_name.outputs.model_name }}
 
       # Upload artifact
