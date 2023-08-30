@@ -43,7 +43,6 @@ runs:
 
     # If branchName is empty use issue number, else, use the branchName 🟢 ♻️
     - uses: actions/checkout@v3
-      if: steps.Create_Issue_Branch.outputs.branchName != ''
       with:
           ref: ${{ steps.Create_Issue_Branch.outputs.branchName }}
     
