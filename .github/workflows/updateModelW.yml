@@ -30,8 +30,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Get Python Scripts
-        # Only if "Model's python scripts" is inside the list of updates in Create_Issue_Branch
-        if: [[ ${{ steps.Create_Issue_Branch.outputs.UPDATES }} =~ (^|[[:space:]])"Model python scripts"($|[[:space:]]) ]] 
+        # Only if Models python is inside the list of updates in Create_Issue_Branch
+        if: ${{ steps.Create_Issue_Branch.outputs.UPDATES }} =~ (^|[[:space:]])"Model python scripts"($|[[:space:]])
         id: python_scripts
         run: |
           echo "pythons<<EOF" >> $GITHUB_ENV
@@ -39,7 +39,7 @@ jobs:
           echo "EOF" >> $GITHUB_ENV
 
       - name: Generate SVN URLs
-        if: [[ ${{ steps.Create_Issue_Branch.outputs.UPDATES }} =~ (^|[[:space:]])"Model python scripts"($|[[:space:]]) ]]
+        if: ${{ steps.Create_Issue_Branch.outputs.UPDATES }} =~ (^|[[:space:]])"Model python scripts"($|[[:space:]])
         id: generate_urls
         run: |
           echo "pythons2<<EOF" >> $GITHUB_ENV
@@ -49,7 +49,7 @@ jobs:
             pythons: ${{ env.pythons }}
         
       - name: Clone python scripts
-        if: [[ ${{ steps.Create_Issue_Branch.outputs.UPDATES }} =~ (^|[[:space:]])"Model python scripts"($|[[:space:]]) ]]
+        if: ${{ steps.Create_Issue_Branch.outputs.UPDATES }} =~ (^|[[:space:]])"Model python scripts"($|[[:space:]])
         run: |
           svn_urls="${{ env.pythons2 }}"
           for svn_url in $svn_urls; do
@@ -57,7 +57,7 @@ jobs:
           done
 
       - name: Clone docker folder
-        if: [[ ${{ steps.Create_Issue_Branch.outputs.UPDATES }} =~ (^|[[:space:]])"Docker information"($|[[:space:]]) ]] 
+        if: ${{ steps.Create_Issue_Branch.outputs.UPDATES }} =~ (^|[[:space:]])"Docker information"($|[[:space:]])
         run: |
           url="${{ steps.Create_Issue_Branch.outputs.DOCKER }}"
           echo $url
