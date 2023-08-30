@@ -40,10 +40,6 @@ runs:
     # This is when the action fails and the user wants to update the issue scripts
     # This will ref the issue branch and allow for the rest of the script to update
     # the branch. 🟢 ♻️
-    - uses: actions/checkout@v3
-      if: steps.Create_Issue_Branch.outputs.branchName == ''
-      with:
-        ref: issue-${{ inputs.issueNumber }}
 
     # If branchName is empty use issue number, else, use the branchName 🟢 ♻️
     - uses: actions/checkout@v3
