@@ -30,7 +30,7 @@ jobs:
     # This will automatically create a new branch from this issue, using custom config at /.github/issue-branch.yml 🟢
     # Create a new repo, and parse issue information with composite action
     - name: Setup the Branch
-      uses: gaiborjosue/Test-Github-workflows@main
+      uses: gaiborjosue/Branch_Creation_Nobrainer@main
       id: Create_Issue_Branch
       with:
           issueNumber: ${{ github.event.issue.number }}
