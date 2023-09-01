@@ -8,7 +8,7 @@ body:
     attributes:
       value: |
         ## Recommendations to the user:
-        ## Major Version Update (X.0.0):
+        ## 1. Major Version Update (X.0.0):
             - Major updates indicate significant changes that may affect the overall behavior or compatibility of the model. These updates often require thorough testing and validation.
             *Recommended Changes*:
             - Major updates should be considered when there are significant changes to the model's architecture, behavior, or compatibility.
