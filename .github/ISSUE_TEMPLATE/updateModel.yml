@@ -8,7 +8,7 @@ body:
     attributes:
       value: |
         ## Recommendations to the user:
-        1. ###**Major Version Update (X.0.0):**
+        ###1. **Major Version Update (X.0.0):**
             - Major updates indicate significant changes that may affect the overall behavior or compatibility of the model. These updates often require thorough testing and validation.
             *Recommended Changes*:
             - Major updates should be considered when there are significant changes to the model's architecture, behavior, or compatibility.
@@ -16,21 +16,21 @@ body:
             - Structural changes to the weights folder, such as changing the model architecture or introducing new model components.
             - Modifications to the Docker configuration that significantly alter the deployment environment.
             - Changes to the sample data that affect the overall behavior of the model.
-        2. ###**Minor Version Update (X.Y.0):**
+        ###2. **Minor Version Update (X.Y.0):**
             - Minor updates introduce new features, enhancements, or optimizations to the model without drastically affecting existing functionality.
             *Recommended Changes*:
             - New features or improvements added to the model.
             - Changes to the Python scripts that enhance performance, add new functionality, or optimize existing code.
             - Addition of new sample data for testing or demonstration purposes.
             - Adjustments to the Docker configuration to support new features.
-        3. ###**Patch Version Update (X.Y.Z):**
+        ###3. **Patch Version Update (X.Y.Z):**
             - Patch updates include bug fixes, small improvements, and updates that do not introduce new features or major changes.
             *Recommended Changes*:
             - Bug fixes to address issues reported by users.
             - Updates to the model's documentation, such as clarifications or corrections.
             - Minor adjustments to the Docker configuration or deployment process.
             - Updates to metadata files like **`spec.yaml`** or **`model_card.yaml`** to provide more accurate or updated information.
-        4. ###**Special Case: Weight Update (Major Change):**
+        ###4. **Special Case: Weight Update (Major Change):**
             - Whenever there is an update to the weights folder, it should be considered a major change due to its potential impact on model behavior and compatibility.
             *Recommended Changes*:
             - Any modifications to the weights folder, including changes to weights, biases, model parameters, or model architecture.
