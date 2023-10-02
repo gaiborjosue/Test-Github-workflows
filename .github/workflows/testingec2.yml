@@ -39,16 +39,11 @@ jobs:
           sudo apt-get install -y build-essential \
           libseccomp-dev pkg-config squashfs-tools cryptsetup
 
-          sudo apt install alien -y
-          
-          wget https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/s/singularity-ce-3.11.5-1.el8.x86_64.rpm
-          sudo alien -d singularity-ce-3.11.5-1.el8.x86_64.rpm
+          wget https://github.com/sylabs/singularity/releases/download/v3.8.3/singularity-ce-3.8.3.tar.gz
 
-          sudo apt-get install ./singularity-ce-3.11.5-1.el8.x86_64.rpm -y
+          sudo apt install ./singularity-ce-3.8.3.tar.gz
 
-          singularity --version
-
-
+          singularity version
 
   stop-runner:
     name: Stop self-hosted EC2 runner
