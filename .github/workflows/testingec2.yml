@@ -43,8 +43,8 @@ jobs:
               libseccomp-dev \
               pkg-config
 
-              sudo apt install golang-1.20-go
-              
+              sudo apt install golang-1.20-go -y
+
               echo 'export GOPATH=${HOME}/go' >> ~/.bashrc && \
               echo 'export PATH=/usr/local/go/bin:${PATH}:${GOPATH}/bin' >> ~/.bashrc && \
               source ~/.bashrc
