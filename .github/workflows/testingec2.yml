@@ -43,14 +43,18 @@ jobs:
           echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
           source ~/.bashrc
 
-          sudo wget -O- http://neuro.debian.net/lists/xenial.us-ca.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list && \
-          sudo apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9 && \
-          sudo apt-get update
+          git clone https://github.com/hpcng/singularity.git
+          cd singularity
 
-          sudo apt-get install -y singularity-container
+          git checkout v3.8.4
+
+          ./mconfig
+          cd ./builddir
+          make
+          sudo make install
 
           singularity --version
-
+          
 
   stop-runner:
     name: Stop self-hosted EC2 runner
