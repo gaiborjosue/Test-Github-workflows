@@ -40,10 +40,11 @@ jobs:
           libseccomp-dev pkg-config squashfs-tools cryptsetup
 
           sudo apt install alien -y
+          
+          wget https://dl.fedoraproject.org/pub/epel/8/Everything/x86_64/Packages/s/singularity-ce-3.11.5-1.el8.x86_64.rpm
+          sudo alien -d singularity-ce-3.11.5-1.el8.x86_64.rpm
 
-          sudo alien -d singularity-3.8.0-1.el8.x86_64.rpm
-
-          sudo apt-get install ./singularity_3.8.0-2_amd64.deb -y
+          sudo apt-get install ./singularity-ce-3.11.5-1.el8.x86_64.rpm -y
 
           singularity --version
 
