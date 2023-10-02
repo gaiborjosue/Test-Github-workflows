@@ -39,12 +39,11 @@ jobs:
           sudo apt-get install -y build-essential \
           libseccomp-dev pkg-config squashfs-tools cryptsetup
 
-          wget -O- http://neuro.debian.net/lists/jammy.us-tn.full | sudo tee /etc/apt/sources.list.d/neurodebian.sources.list
-          sudo apt-key adv --recv-keys --keyserver hkps://keyserver.ubuntu.com 0xA5D32F012649A5A9
+          sudo apt install alien 
 
-          sudo apt-get update
+          sudo alien -d singularity-3.8.0-1.el8.x86_64.rpm
 
-          sudo apt-get install -y singularity-container
+          sudo apt-get install ./singularity_3.8.0-2_amd64.deb
 
           singularity --version
 
