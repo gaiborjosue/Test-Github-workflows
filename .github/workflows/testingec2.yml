@@ -45,13 +45,17 @@ jobs:
           singularity version
 
       - name: Convert docker image to singularity image
-        run: |
-          ls -lh
-          
-          singularity pull testing.sif docker://edwardjosue2005/docker101tutorial
+        run: |    
+        mkdir /Bot
+        cd /Bot
+
+        singularity pull testing.sif docker://edwardjosue2005/docker101tutorial
 
       - name: Run singularity image
         run: |
+          ls -lh
+          cd /Bot
+
           singularity exec testing.sif echo "Hello World!"
 
   stop-runner:
