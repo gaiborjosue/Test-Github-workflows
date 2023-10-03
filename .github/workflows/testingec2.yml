@@ -52,7 +52,20 @@ jobs:
 
       - name: Run singularity image
         run: |
-          singularity exec testing.sif echo "Hello World!"
+          git clone https://github.com/gaiborjosue/DeepCSR-testing.git
+
+          sudo apt install python3-pip -y
+
+          pip3 install gdown
+
+          pip install --upgrade gdown
+
+          gdown https://drive.google.com/uc?id=10P5XnHbJLQgo5nkbheT6iES9P-JeFPIq&confirm=t -O DeepCSR-testing/best_model.pth
+
+          
+          singularity exec testing.sif python DeepCSR-testing/predict.py --conf_path DeepCSR-testing/predict.yaml --model_checkpoint DeepCSR-testing/best_model.pth --dataset DeepCSR-testing/test.nii.gz --output_dir DeepCSR-testing/output
+
+
 
   stop-runner:
     name: Stop self-hosted EC2 runner
