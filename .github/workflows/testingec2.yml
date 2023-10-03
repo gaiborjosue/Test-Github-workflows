@@ -55,7 +55,7 @@ jobs:
 
       - name: Run singularity image
         run: |
-          singularity exec --nv --bind /Bro,/Bro/test:/output -W /output /testing.sif echo "Hello World!"
+          singularity exec /Bro/test/testing.sif echo "Hello World!"
 
   stop-runner:
     name: Stop self-hosted EC2 runner
