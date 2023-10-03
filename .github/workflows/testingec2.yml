@@ -46,10 +46,10 @@ jobs:
 
       - name: Convert docker image to singularity image
         run: |    
-        mkdir /Bot
-        cd /Bot
+          mkdir /Bot
+          cd /Bot
 
-        singularity pull testing.sif docker://edwardjosue2005/docker101tutorial
+          singularity pull testing.sif docker://edwardjosue2005/docker101tutorial
 
       - name: Run singularity image
         run: |
