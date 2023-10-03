@@ -46,11 +46,16 @@ jobs:
 
       - name: Convert docker image to singularity image
         run: |
-          singularity pull /Bro/test/testing.sif docker://edwardjosue2005/docker101tutorial
+          mkdir Bro
+          cd Bro
+          mkdir test
+          cd ..
+          
+          singularity pull ./Bro/test/testing.sif docker://edwardjosue2005/docker101tutorial
 
       - name: Run singularity image
         run: |
-          singularity exec --nv --bind /Bro,/Bro/test:/output -W /output testing.sif echo "Hello World!"
+          singularity exec --nv --bind ./Bro,./Bro/test:/output -W /output testing.sif echo "Hello World!"
 
   stop-runner:
     name: Stop self-hosted EC2 runner
