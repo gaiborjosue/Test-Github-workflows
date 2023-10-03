@@ -44,6 +44,14 @@ jobs:
           sudo apt install ./singularity-ce_4.0.0-jammy_amd64.deb -y
           singularity version
 
+      - name: Convert docker image to singularity image
+        run: |
+          singularity pull testing.sif docker://edwardjosue2005/docker101tutorial
+
+      - name: Run singularity image
+        run: |
+          singularity exec testing.sif echo "Hello World!"
+
   stop-runner:
     name: Stop self-hosted EC2 runner
     needs:
