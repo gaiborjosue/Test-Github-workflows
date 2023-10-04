@@ -64,7 +64,7 @@ jobs:
           
           ls
           
-          singularity exec testing.sif python ./DeepCSR-testing/predict.py --conf_path ./DeepCSR-testing/predict.yaml --model_checkpoint best_model.pth --dataset ./DeepCSR-testing/test.nii.gz --output_dir ./DeepCSR-testing/
+          singularity exec --nv --bind ./Test-Github-workflows,./Test-Github-workflows/DeepCSR-testing:/output testing.sif python /output/predict.py --conf_path /output/predict.yaml --model_checkpoint best_model.pth --dataset /output/test.nii.gz --output_dir /output
 
 
 
