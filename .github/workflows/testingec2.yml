@@ -38,7 +38,8 @@ jobs:
         run: |
 
           sudo apt-get update
-          sudo apt install libc6=2.31-0ubuntu9.2 libc-bin=2.31-0ubuntu9.2
+          sudo apt install libc6=2.31-0ubuntu9.9 libc-bin=2.31-0ubuntu9.9
+
           wget https://github.com/sylabs/singularity/releases/download/v4.0.0/singularity-ce_4.0.0-jammy_amd64.deb
 
           sudo apt install ./singularity-ce_4.0.0-jammy_amd64.deb -y
