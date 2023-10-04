@@ -62,6 +62,8 @@ jobs:
 
           gdown https://drive.google.com/uc?id=10P5XnHbJLQgo5nkbheT6iES9P-JeFPIq&confirm=t
           
+          ls
+          
           singularity exec testing.sif python /DeepCSR-testing/predict.py --conf_path /DeepCSR-testing/predict.yaml --model_checkpoint best_model.pth --dataset /DeepCSR-testing/test.nii.gz --output_dir /DeepCSR-testing/output
 
 
