@@ -41,30 +41,6 @@ jobs:
           sudo apt-get install -y build-essential \
           libseccomp-dev pkg-config squashfs-tools cryptsetup make
 
-          sudo apt-get install -y gcc make linux-headers-$(uname -r)
-
-          cat << EOF | sudo tee --append /etc/modprobe.d/blacklist.conf
-          blacklist vga16fb
-          blacklist nouveau
-          blacklist rivafb
-          blacklist nvidiafb
-          blacklist rivatv
-          EOF
-
-          echo 'GRUB_CMDLINE_LINUX="rdblacklist=nouveau"' >> /etc/default/grub
-
-          sudo update-grub
-
-          aws s3 cp --recursive s3://ec2-linux-nvidia-drivers/latest/ .
-
-          chmod +x NVIDIA-Linux-x86_64*.run
-
-          sudo /bin/sh ./NVIDIA-Linux-x86_64*.run -y
-
-          nvidia-smi -q | head
-
-          sudo reboot
-          
           wget https://github.com/sylabs/singularity/releases/download/v4.0.0/singularity-ce_4.0.0-jammy_amd64.deb
 
           sudo apt install ./singularity-ce_4.0.0-jammy_amd64.deb -y
@@ -87,6 +63,8 @@ jobs:
           gdown https://drive.google.com/uc?id=10P5XnHbJLQgo5nkbheT6iES9P-JeFPIq&confirm=t
           
           ls
+
+          nvidia-smi
           
           singularity exec --nv --bind /actions-runner,/actions-runner/_work/,/actions-runner/_work/Test-Github-workflows/Test-Github-workflows/DeepCSR-testing:/output testing.sif python /output/predict.py --conf_path /output/predict.yaml --model_checkpoint best_model.pth --dataset /output/test.nii.gz --output_dir /output
 
