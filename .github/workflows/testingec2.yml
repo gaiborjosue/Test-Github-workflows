@@ -27,12 +27,27 @@ jobs:
           security-group-id: ${{ vars.AWS_SECURITY_GROUP }}
 
           
-          
+
   do-the-job:
     name: Do the job on the runner
     needs: start-runner # required to start the main job when the runner is ready
     runs-on: ${{ needs.start-runner.outputs.label }} # run the job on the newly created runner
     steps:
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: false
+          
+          # all of these default to true, but feel free to set to
+          # "false" if necessary for your workflow
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: false
+          
       - uses: actions/checkout@v3
 
       - name: Install singularity
