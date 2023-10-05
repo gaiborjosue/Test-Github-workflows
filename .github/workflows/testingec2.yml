@@ -98,6 +98,13 @@ jobs:
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
           docker pull edwardjosue2005/deepcsr
+      
+      - name: Collect Workflow Telemetry
+        uses: runforesight/workflow-telemetry-action@v1
+        with:
+          job_summary: true
+          proc_trace_sys_enable: true
+          proc_trace_table_show: true
 
       - name: Run docker image with testing commands
         run: |
