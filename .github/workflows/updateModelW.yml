@@ -9,7 +9,7 @@ jobs:
   create_new_branch:
     # The workflow will only activate if the title starts with "New Model:" and does not have a label 'failed'.
     # If the label is 'failed' the user must update the bugs and update the label to 'ready-for-testing'
-    if: ${{startsWith(github.event.issue.title, 'Update Model:') && contains(github.event.issue.labels.*.name, 'failed') != true}}
+    if: ${{startsWith(github.event.issue.title, 'Lol Model:') && contains(github.event.issue.labels.*.name, 'failed') != true}}
 
     runs-on: ubuntu-latest
     
