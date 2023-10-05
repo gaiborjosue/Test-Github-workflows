@@ -104,26 +104,6 @@ jobs:
           echo "model_info<<EOF" >> $GITHUB_ENV
           echo "${{ needs.create_new_branch.outputs.MODELINFO }}" >> $GITHUB_ENV
           echo "EOF" >> $GITHUB_ENV
-
-      # Get svn urls for exporting card and spec urls 🟢
-      - name: Generate Model Info SVN URLs
-        if: ${{ contains(needs.create_new_branch.outputs.UPDATES, 'ModelCardAndSpec') }}
-        id: generate_model_info_urls
-        run: |
-          echo "model_info2<<EOF" >> $GITHUB_ENV
-          python ./.github/workflows/getModelInfo.py >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
-        env:
-            model_info: ${{ needs.create_new_branch.outputs.MODELINFO }}
-
-      # Export the urls/clone the model info 🟢
-      - name: Clone model info
-        if: ${{ contains(needs.create_new_branch.outputs.UPDATES, 'ModelCardAndSpec') }}
-        run: |
-          model_info="${{ env.model_info2 }}"
-          for svn_url in $model_info; do
-            svn export --force $svn_url ./${{ needs.create_new_branch.outputs.MODELPATH }}
-          done
     
       # Commit the new created files and folders to the branch needs.create_new_branch.outputs.BRANCHNAME 🟢
       - name: Commit and Push the new files
