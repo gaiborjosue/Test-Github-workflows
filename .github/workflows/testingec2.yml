@@ -97,7 +97,7 @@ jobs:
         run: |
           sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
           sudo docker run hello-world
-          
+
           docker pull edwardjosue2005/deepcsr
 
       - name: Run docker image with testing commands
@@ -114,7 +114,7 @@ jobs:
           
           ls
           
-          docker run --gpus all -v /actions-runner,/actions-runner/_work/,/actions-runner/_work/Test-Github-workflows/Test-Github-workflows/DeepCSR-testing:/output --rm testing.sif python /output/predict.py --conf_path /output/predict.yaml --model_checkpoint best_model.pth --dataset /output/test.nii.gz --output_dir /output
+          docker run --gpus all -v /actions-runner,/actions-runner/_work/,/actions-runner/_work/Test-Github-workflows/Test-Github-workflows/DeepCSR-testing:/output --rm testing python /output/predict.py --conf_path /output/predict.yaml --model_checkpoint best_model.pth --dataset /output/test.nii.gz --output_dir /output
           
 
 
