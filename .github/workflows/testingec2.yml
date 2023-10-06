@@ -109,17 +109,18 @@ jobs:
 
           pip install --upgrade gdown
 
-          gdown https://drive.google.com/uc?id=10P5XnHbJLQgo5nkbheT6iES9P-JeFPIq&confirm=t
+          gdown "https://drive.google.com/uc?id=10P5XnHbJLQgo5nkbheT6iES9P-JeFPIq&confirm=t"
           
-          ls
+          mv best_model.pth DeepCSR-testing
 
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
           docker build -t deepcsr ./DeepCSR-testing/docker
+
           docker images
-          docker run deepcsr /bin/sh
-          sudo docker run --gpus all -v /actions-runner,/actions-runner/_work/,/actions-runner/_work/Test-Github-workflows/Test-Github-workflows/DeepCSR-testing:/output deepcsr python /output/predict.py --conf_path /output/predict.yaml --model_checkpoint best_model.pth --dataset /output/test.nii.gz --output_dir /output
-          docker logs -f deepcsr
+
+          docker run -v ./DeepCSR-testing:/output deepcsr "cd /output; python predict.py --conf_path predict.yaml --model_checkpoint best_model.pth --dataset test.nii.gz --output_dir ."
+
 
   stop-runner:
     name: Stop self-hosted EC2 runner
