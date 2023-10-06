@@ -119,8 +119,8 @@ jobs:
 
           docker images
 
-          docker run -v ./DeepCSR-testing:/output deepcsr "cd /output; python predict.py --conf_path predict.yaml --model_checkpoint best_model.pth --dataset test.nii.gz --output_dir ."
-          
+          docker run --gpus all -v ./DeepCSR-testing:/output deepcsr "cd /output; python predict.py --conf_path predict.yaml --model_checkpoint best_model.pth --dataset test.nii.gz --output_dir ."
+
 
 
   stop-runner:
