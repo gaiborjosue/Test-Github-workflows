@@ -28,7 +28,10 @@ jobs:
           ec2-instance-type: ${{ vars.AWS_INSTANCE_TYPE }}
           subnet-id: ${{ vars.AWS_SUBNET }}
           security-group-id: ${{ vars.AWS_SECURITY_GROUP }}
-
+          aws-resource-tags: > # optional, requires additional permissions
+            [
+            {"Key": "Name", "Value": "Test-null-GPU-HG"}
+            ]
           
 
   do-the-job:
