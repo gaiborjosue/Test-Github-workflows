@@ -81,6 +81,7 @@ jobs:
 
       - name: Run singularity image
         run: |
+          export HOME=/home/ubuntu
           echo $HOME
           cd $HOME
           git clone https://github.com/gaiborjosue/DeepCSR-testing.git
