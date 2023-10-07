@@ -94,6 +94,10 @@ jobs:
           pwd
 
           ls
+
+          cd .
+
+          ls
           
           # singularity exec --nv --bind /actions-runner,/actions-runner/_work/,/actions-runner/_work/Test-Github-workflows/Test-Github-workflows/DeepCSR-testing:/output testing.sif python /output/predict.py --conf_path /output/predict.yaml --model_checkpoint best_model.pth --dataset /output/test.nii.gz --output_dir /output
 
