@@ -82,8 +82,10 @@ jobs:
       - name: Run singularity image
         run: |
           pwd
-          git clone https://github.com/gaiborjosue/DeepCSR-testing.git
-          ls
+          echo $HOME
+          pwd
+          # git clone https://github.com/gaiborjosue/DeepCSR-testing.git
+          # ls
       #     sudo apt install python3-pip -y
       #     # pip3 install gdown
       #     pip install --upgrade gdown
