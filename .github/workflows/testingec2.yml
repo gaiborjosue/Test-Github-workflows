@@ -64,12 +64,13 @@ jobs:
 
       - name: Install singularity
         run: |
+          export HOME=/home/ubuntu
+          cd $HOME
+          # sudo apt-get update && \
+          # sudo apt-get install -y build-essential \
+          # libseccomp-dev pkg-config squashfs-tools cryptsetup make
 
-          sudo apt-get update && \
-          sudo apt-get install -y build-essential \
-          libseccomp-dev pkg-config squashfs-tools cryptsetup make
-
-          wget https://github.com/sylabs/singularity/releases/download/v4.0.0/singularity-ce_4.0.0-focal_amd64.deb
+          # wget https://github.com/sylabs/singularity/releases/download/v4.0.0/singularity-ce_4.0.0-focal_amd64.deb
           pwd
           # sudo apt install ./singularity-ce_4.0.0-focal_amd64.deb -y
           # singularity version
@@ -78,12 +79,11 @@ jobs:
       #   run: |
       #     singularity pull testing.sif docker://edwardjosue2005/deepcsr
 
-      # - name: Run singularity image
-      #   run: |
-      #     export HOME=/home/ubuntu
-      #     cd $HOME
-      #     git clone https://github.com/gaiborjosue/DeepCSR-testing.git
-
+      - name: Run singularity image
+        run: |
+          pwd
+          git clone https://github.com/gaiborjosue/DeepCSR-testing.git
+          ls
       #     sudo apt install python3-pip -y
       #     # pip3 install gdown
       #     pip install --upgrade gdown
