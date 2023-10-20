@@ -8,7 +8,7 @@ jobs:
 
     steps:
       - name: Lol
-        run: python
+        run: pyrhon
         continue-on-error: true
 
       - name: Test
